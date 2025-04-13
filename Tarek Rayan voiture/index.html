@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض السيارات الفاخر | Elite Motors</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: #111;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* الشريط العلوي */
+        header {
+            background: linear-gradient(to bottom, #000, transparent);
+            padding: 20px 50px;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 50px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #f1c40f;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #f1c40f;
+        }
+        
+        /* قسم الهيرو */
+        .hero {
+            height: 100vh;
+            background: url('car.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 0 20px;
+        }
+        
+        .hero-content h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            color: #f1c40f;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #f1c40f;
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid #f1c40f;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: #f1c40f;
+        }
+        
+        /* قسم السيارات */
+        .cars-section {
+            padding: 100px 50px;
+            background-color: #000;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 42px;
+            color: #f1c40f;
+        }
+        
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .car-card {
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);
+        }
+        
+        .car-img {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .car-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .car-card:hover .car-img img {
+            transform: scale(1.1);
+        }
+        
+        .car-info {
+            padding: 20px;
+        }
+        
+        .car-info h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #f1c40f;
+        }
+        
+        .car-info p {
+            margin-bottom: 15px;
+            color: #aaa;
+        }
+        
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .car-specs span {
+            display: flex;
+            align-items: center;
+            color: #ddd;
+        }
+        
+        .car-specs i {
+            margin-left: 5px;
+            color: #f1c40f;
+        }
+        
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #f1c40f;
+        }
+        
+        /* قسم الخدمات */
+        .services {
+            padding: 100px 50px;
+            background: url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            position: relative;
+        }
+        
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .services-container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(241, 196, 15, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            font-size: 50px;
+            color: #f1c40f;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .service-card p {
+            color: #ddd;
+            line-height: 1.6;
+        }
+        
+        /* قسم التواصل */
+        .contact {
+            padding: 100px 50px;
+            background-color: #000;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #f1c40f;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .info-item i {
+            font-size: 20px;
+            color: #f1c40f;
+            margin-left: 15px;
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            background: #222;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: none;
+        }
+        
+        .contact-form button {
+            background: #f1c40f;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .contact-form button:hover {
+            background: #e6b800;
+        }
+        
+        /* الفوتر */
+        footer {
+            background: #000;
+            padding: 50px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #f1c40f;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .social-links {
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #f1c40f;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: #f1c40f;
+            color: #000;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            color: #777;
+        }
+        
+        /* تأثيرات الحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            nav ul li {
+                margin-left: 15px;
+            }
+            
+            .hero-content h1 {
+                font-size: 48px;
+            }
+            
+            .hero-content p {
+                font-size: 18px;
+            }
+            
+            .cars-section, .services, .contact {
+                padding: 60px 20px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- الشريط العلوي -->
+    <header id="header">
+        <a href="#" class="logo">TAREK RAYAN <span>Motors</span></a>
+        <nav>
+            <ul>
+                <li><a href="#home">Domicile</a></li>
+                <li><a href="#cars">Voitures</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contactez-nous</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- قسم الهيرو -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Découvrez l’univers des voitures de luxe
+            </h1>
+            <p>Chez Elite Motors, nous vous proposons une collection exclusive des plus belles voitures du monde avec l’assurance de la qualité et de l’excellence du service.
+
+            </p>
+            <a href="#cars" class="btn">Parcourir les voitures</a>
+        </div>
+    </section>
+
+    <!-- قسم السيارات -->
+    <section class="cars-section" id="cars">
+        <h2 class="section-title">Nos derniers modèles</h2>
+        <div class="cars-grid">
+            <!-- سيارة 1 -->
+            <div class="car-card animate">
+                <div class="car-img">
+                    <img src="g claass.png" alt="سيارة BMW M5">
+                </div>
+                <div class="car-info">
+                    <h3>Classe G vehicule tout-terrain</h3>
+                    <p>Classe G
+                        Des performances supérieures avec un luxe inégalé</p>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 330 km/h</span>
+                        <span><i class="fas fa-bolt"></i> 625 ch</span>
+                        <span><i class="fas fa-clock"></i> 3.3 s</span>
+                    </div>
+                    <div class="price">148,467$</div>
+                </div>
+            </div>
+            
+            <!-- سيارة 2 -->
+            <div class="car-card animate" style="animation-delay: 0.2s;">
+                <div class="car-img">
+                    <img src="mc.png" alt="سيارة Porsche 911">
+                </div>
+                <div class="car-info">
+                    <h3>McLaren 750 s coupé</h3>
+                    <p></p>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 330 km/h</span>
+                        <span><i class="fas fa-bolt"></i> 650 ch</span>
+                        <span><i class="fas fa-clock"></i> 2.7 s</span>
+                    </div>
+                    <div class="price">350000$</div>
+                </div>
+            </div>
+            
+            <!-- سيارة 3 -->
+            <div class="car-card animate" style="animation-delay: 0.4s;">
+                <div class="car-img">
+                    <img src="cle.png" alt="سيارة Mercedes S-Class">
+                </div>
+                <div class="car-info">
+                    <h3>Cle coupe</h3>
+                    <p>Le luxe ultime avec les technologies du futur</p>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
+                        <span><i class="fas fa-bolt"></i> 435 ch</span>
+                        <span><i class="fas fa-chair"></i> 4 places</span>
+                    </div>
+                    <div class="price">99,584$</div>
+                </div>
+            </div>
+            
+            <!-- سيارة 4 -->
+            <div class="car-card animate" style="animation-delay: 0.6s;">
+                <div class="car-img">
+                    <img src="ra.jpg" alt="سيارة Range Rover">
+                </div>
+                <div class="car-info">
+                    <h3>Range Rover SVAutobiography</h3>
+                    <p>    Voiture familliale de Luxe</p>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 250 km/h</span>
+                        <span><i class="fas fa-bolt"></i> s 565  </span>
+                        <span><i class="fas fa-snowflake"></i> systeme de chauffage  </span>
+                    </div>
+                    <div class="price">75000 $ </div>
+                </div>
+            </div>
+            
+            <!-- سيارة 5 -->
+            <div class="car-card animate" style="animation-delay: 0.8s;">
+                <div class="car-img">
+                    <img src="subv.jpg">
+                </div>
+                <div class="car-info">
+                    <h3>Lamborghini Urus</h3>
+                    <p>SUV   avec les performances d'une supercar.</p>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 305 km/h</span>
+                        <span><i class="fas fa-bolt"></i> 650 ch</span>
+                        <span><i class="fas fa-clock"></i> 3.6 s</span>
+                    </div>
+                    <div class="price"></div>
+                </div>
+            </div>
+            
+            <!-- سيارة 6 -->
+            <div class="car-card animate" style="animation-delay: 1s;">
+                <div class="car-img">
+                    <img src="bmw.png" alt="سيارة Audi R8">
+                </div>
+                <div class="car-info">
+                    <h3>BMW M4 CS COUPE</h3>
+   <p>La puissance allemande avec dix cylindres.</p>
+                    <div class="car-specs">
+                        <span><i class="fas fa-tachometer-alt"></i> 330 km/h </span>
+                        <span><i class="fas fa-bolt"></i> 610 ch</span>
+                        <span><i class="fas fa-clock"></i> 3.2 s</span>
+                    </div>
+                    <div class="price">1,950,000 ر.س</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الخدمات -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <h2 class="section-title"> Nos services distingues</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Livraison de voiture</h3>
+                    <p>Nous fournissons un service de livraison de voiture à votre adresse partout dans le Royaume tout en assurant la sûreté et la sécurité.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Garantie prolongée</h3>
+                    <p>Tous nos véhicules sont assortis d’une garantie prolongée du fabricant allant jusqu’à 5 ans ou 100 000 km, selon la première éventualité.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Sans entretien</h3>
+                    <p>Obtenez 3 services d’entretien gratuits au cours de la première année suivant l’achat dans nos centres agréés.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                <h3>Simplification des procédures</h3>
+                <p>Notre équipe juridique s’occupe de toutes les procédures d’enregistrement et de licence en votre nom.</p>
+                    
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+               <h3>Financements concessionnels</h3>
+               <p>Nous proposons des solutions de financement faciles en coopération avec les meilleures banques locales à des prix compétitifs.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                   <h3>Voiture de remplacement</h3>
+                   <p>Si vous avez besoin d’un entretien, nous mettons gratuitement à votre disposition une voiture de remplacement pour la durée de la réparation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contactez-nous</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contactez-nous  </h3>
+                <p>Nous offrons une expérience unique pour les amateurs de voitures de luxe. Venez nous rendre visite dans notre salle d’exposition pour découvrir nos voitures de près et obtenir des conseils d’experts.
+
+                </p>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Belgique-mons</span>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+32 466 13 29 03</span>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>22290.zatarek@gmail.com</span>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <span> Lundi-vendreidi<br></span>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="NOM ET PRENOM" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="EMAIL" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="NUMERO DE TELEPHONE">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="VOTRE MESSAGE" required></textarea>
+                    </div>
+                    <button type="submit"> ENVOIYEZ VOTRE MESSAGE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <a href="#" class="footer-logo">TAREK RAYAN<span>Motors</span></a>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="copyright">© 2025 TAREK RAYAN Motors. </p>
+    </footer>
+
+    <script>
+        // تأثير التمرير للهيدر
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // تنعيم التمرير للروابط
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // تأثير الظهور عند التمرير
+        const animateElements = document.querySelectorAll('.animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        animateElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+        
+        // إرسال نموذج التواصل
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
